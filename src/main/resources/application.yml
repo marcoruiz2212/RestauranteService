@@ -1,0 +1,23 @@
+server:
+  port: 8083
+  servlet:
+    context-path=/restaurant-service:
+
+springdoc:
+  swagger-ui:
+    path: /docs/swagger-ui
+
+
+spring:
+  application:
+    name: payment-service
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql=true:
+
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3307/restaurantServiceDB
+    username: restaurantUser
+    password: 123456789
+    driver-class-name: com.mysql.cj.jdbc.Driver
