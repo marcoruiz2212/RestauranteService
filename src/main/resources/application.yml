@@ -17,7 +17,8 @@ spring:
     show-sql=true:
 
   datasource:
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:3307/restaurantServiceDB
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/${MYSQL_DATABASE:restaurantDB}?allowPublicKeyRetrieval=true&useSSL=false
+    # url: jdbc:mysql://host.docker.internal:3307/restaurantDB
     username: restaurantUser
     password: 123456789
     driver-class-name: com.mysql.cj.jdbc.Driver

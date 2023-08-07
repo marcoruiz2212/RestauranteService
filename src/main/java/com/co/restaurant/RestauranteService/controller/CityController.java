@@ -9,10 +9,9 @@ import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Set;
 
 @RestController
 @RequestMapping(value = "/city")
@@ -31,4 +30,19 @@ public class CityController {
         final CityDto city = cityService.saveCity(cityDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(city);
     }
+
+    @GetMapping
+    @Operation(summary = "Get All cities")
+    public ResponseEntity<Set<CityDto>> getAllCities(){
+        final Set<CityDto> cities = cityService.getAll();
+        return ResponseEntity.ok(cities);
+    }
+
+    @GetMapping("/{id}")
+    @Operation(summary = "Get city by id")
+    public ResponseEntity<CityDto> getCityById(@PathVariable final Long id){
+        final CityDto city = cityService.getACityById(id);
+        return ResponseEntity.ok(city);
+    }
+
 }

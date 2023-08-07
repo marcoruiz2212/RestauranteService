@@ -1,0 +1,44 @@
+version: "3.9"
+services:
+  mysql_restaurant:
+    container_name: mysql_restaurant
+    image: library/mysql:8
+    networks:
+      - restaurant-net
+    ports:
+      - '3307:3307'
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_USER: root
+      MYSQL_DATABASE: restaurantDB
+      MYSQL_USER: restaurantUser
+      MYSQL_PASSWORD: 123456789
+    volumes:
+      - data-mysql:/data/mysql-restaurant
+    restart: always
+  restaurant_services:
+    container_name: restaurant_services
+    #image: restaurant
+    #build:
+      #context: ./
+      #dockerfile: ./Dockerfile
+    image: mrflorez22/restaurant:latest
+    restart: always
+    networks:
+      - restaurant-net
+    ports:
+      - '8083:8083'
+    depends_on:
+      - mysql_restaurant
+    environment:
+      MYSQL_DATABASE: restaurantDB
+      MYSQL_USER: restaurantUser
+      MYSQL_PASSWORD: 123456789
+      MYSQL_HOST: mysql_restaurant
+      MYSQL_ROOT_PASSWORD:  root
+      SERVER_PORT: 8083
+volumes:
+  data-mysql:
+    name: data-mysql
+networks:
+  restaurant-net:

@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/restaurant")
@@ -41,6 +42,18 @@ public class RestaurantController {
             @ApiResponse(responseCode = "500", description = "Server Error")})
     public ResponseEntity<RestaurantDto> getRestaurantById(@PathVariable final Long id){
         final RestaurantDto restaurantDto = restaurantService.getRestaurantById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(restaurantDto);
+    }
+
+
+    @GetMapping
+    @Operation(summary = "get all restaurants")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "500", description = "Server Error")})
+    public ResponseEntity<Set<RestaurantDto>> getRestaurants(){
+        final Set<RestaurantDto> restaurantDto = restaurantService.getAllRestaurant();
         return ResponseEntity.status(HttpStatus.OK).body(restaurantDto);
     }
 

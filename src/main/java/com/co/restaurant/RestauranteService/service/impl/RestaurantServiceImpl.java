@@ -75,6 +75,12 @@ public class RestaurantServiceImpl implements IRestaurantService {
         return getRestaurant(restaurant.get());
     }
 
+    @Override
+    public Set<RestaurantDto> getAllRestaurant() {
+        final List<Restaurant> restaurants = restaurantRepository.findAll();
+        return restaurants.stream().map(this::getRestaurant).collect(Collectors.toSet());
+    }
+
 
     public List<String> getNamesRestaurant(){
         List<String> titles = new ArrayList<>();

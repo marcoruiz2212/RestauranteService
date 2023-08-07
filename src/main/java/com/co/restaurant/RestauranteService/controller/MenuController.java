@@ -28,4 +28,10 @@ public class MenuController {
         final MenuDto menuDto = menuService.getMenuById(id);
         return ResponseEntity.ok(menuDto);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity< MenuDto> getMenubyId(@PathVariable final Long id){
+        final MenuDto menuDto = menuService.getMenuById(id);
+        return ResponseEntity.ok(menuDto);
+    }
 }
